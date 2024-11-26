@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+{% block title %}
+Chat|ChatAI
+{% endblock %}
+{% block content %}
+{% include 'components/sidebar.html' %}
+<main class="relative w-[100%]">
+  <div class="max-h-screen scrollbar-thin overflow-y-auto" id="chat-container">   
+    <div class="w-[80%] mx-auto p-10">
+        {% include 'components/topbar.html' %}
+      <!-- Message container start-->
+       <section class="grid place-items-center h-screen">
+              <h1 class="text-yellow-300 text-4xl font-bold capitalize">
+                hello {{request.user}}, how can i help you?
+              </h1>
+            </section>
+      <!-- Message container end-->
+
+      <!-- user input form start-->
+      <section
+        class="shadow-lg p-4 absolute w-full mx-auto bottom-0 right-0 bg-stone-900"
+      >
+        <form
+        action={% url 'home' %}
+        method="POST"
+          class="flex items-center space-x-3 w-[80%] relative mx-auto"
+        >
+          {% csrf_token %}
+          <input
+            type="text"
+            name="user-input"
+            placeholder="Ask your Question?..."
+            class="text-white flex-grow bg-stone-800 rounded-full py-4 px-8 focus:outline-none"
+          />
+          <div class="absolute right-8 flex gap-x-4">
+            <button type="button">
+              <i class="ri-image-add-line text-white"></i>
+            </button>
+            <button type="button">
+              <i class="ri-mic-line text-white"></i>
+            </button>
+          </div>
+          <button
+            type="submit"
+            class="hidden bg-purple-600 text-white px-4 py-2 rounded-lg hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-500"
+          >
+            submit
+          </button>
+        </form>
+      </section>
+      <!-- user input form end-->
+    </div>
+  </div>
+</main>
+{% endblock %}

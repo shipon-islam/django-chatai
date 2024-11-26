@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block title %}
+Login|ChatAI
+{% endblock %}
+{% block content %}
+    <main class="grid place-content-center text-white w-full">
+      <div class="bg-stone-800 p-8 rounded-md">
+      <h1 class="capitalize font-bold">Login with credentials</h1>
+    <form class="login-form " method="POST" action="{% url 'login' %}">
+      {% csrf_token %}
+      <div class="my-4">
+      <label class="block" for="username">Username:</label>
+      <input class="pl-2 py-1 rounded-md text-black"  type="text" name="username" id="username" required />
+      </div>
+      <div>
+      <label class="block" for="password">Password:</label>
+      <input class="pl-2 py-1 rounded-md text-black" type="password" name="password" id="password" required />
+      </div>
+      <button class="bg-blue-500 block px-4 py-1 mt-4 ml-auto rounded-md" type="submit">Login</button>
+    </form>
+    <p class="text-sm text-wrap mt-4">Don't have an account?</br><a class="text-blue-500 underline" href="{% url 'register' %}">Register here</a></p>
+    
+    </div>
+    </main>
+{% endblock %}

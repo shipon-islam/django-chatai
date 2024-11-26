@@ -1,0 +1,19 @@
+
+{% extends 'base.html' %}
+{% block title %}
+Register|ChatAI
+{% endblock %}
+{% block content %}
+    <main class="grid place-content-center text-white w-full">
+      <div class="bg-stone-800 p-8 rounded-md">
+      <h1 class="capitalize font-bold">Register with your details</h1>
+    <form class="register-form" method="POST">
+      {% csrf_token %}
+     {{form.as_p}}
+      <button class="bg-blue-500 block px-4 py-1 mt-4 ml-auto rounded-md" type="submit">Register</button>
+    </form>
+    <p class="text-sm text-wrap mt-4">Have an account?</br><a class="text-blue-500 underline" href="{% url 'login' %}">Login here</a></p>
+    
+    </div>
+    </main>
+{% endblock %}
