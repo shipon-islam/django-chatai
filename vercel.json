@@ -4,6 +4,10 @@
       "src": "chatai/wsgi.py",
       "use": "@vercel/python",
       "config": { "maxLambdaSize": "15mb", "runtime": "python3.9" }
+    },
+    {
+      "src": "vercel_build.py",
+      "use": "@vercel/python"
     }
   ],
   "routes": [
@@ -15,11 +19,5 @@
       "src": "/(.*)",
       "dest": "chatai/wsgi.py"
     }
-  ],
-  "build": {
-    "env": {
-      "DJANGO_SETTINGS_MODULE": "chatai.settings"
-    },
-    "commands": ["python manage.py collectstatic --noinput"]
-  }
+  ]
 }
