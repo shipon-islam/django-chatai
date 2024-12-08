@@ -1,17 +1,13 @@
 from django.http import JsonResponse
-from django.shortcuts import render, HttpResponse, redirect, get_object_or_404
-from django.contrib.auth import login, authenticate, logout
+from django.shortcuts import render, redirect
 from .models import Conversation, Messages
-from .forms import RegistrationForm
-from django.contrib import messages
 from .ai_message_db import ai_message_db
-
+from django.contrib.auth.decorators import login_required
 # Create your views here.
 
 
-def home(request):
-    if not request.user.is_authenticated:
-        return redirect('login/')
+@login_required(login_url="signin")
+def chat(request):
     if request.method == "POST":
         input_message = request.POST.get("user-input")
         if not input_message:
@@ -24,16 +20,17 @@ def home(request):
                         "conversation": conversation
                         }
         Messages.objects.create(**message_data)
-        return redirect(f'chat/{conversation.id}/')
+        return redirect('chat_by_id', conversationId=conversation.id)
 
     conversations = Conversation.objects.filter(
         user=request.user).order_by('-created_at')
-    return render(request, 'home.html', {'conversations': conversations})
+    return render(request, 'chat.html', {'conversations': conversations})
 
 
+@login_required(login_url="signin")
 def chat_by_coversationId(request, conversationId):
     if not request.user.is_authenticated:
-        return redirect('login/')
+        return redirect('/accounts/signin/')
     if request.method == "POST":
         input_message = request.POST.get("user-input")
         if not input_message:
@@ -60,37 +57,7 @@ def chat_by_coversationId(request, conversationId):
     messages = Messages.objects.filter(conversation=conversationId)
     conversations = Conversation.objects.filter(
         user=request.user).order_by('-created_at')
-    endpoint = int(request.path.split("/")[2])
-    return render(request, 'chat.html', {'conversations': conversations, "messages": messages, 'endpoint': endpoint})
-
-
-def register_user(request):
-    if request.method == "POST":
-        form = RegistrationForm(request.POST)
-        if form.is_valid():
-            user = form.save()  # Save the user to the database
-            login(request, user)  # Log the user in after registration
-            return redirect("/")  # Redirect to the homepage or dashboard
-    else:
-        form = RegistrationForm()
-
-    return render(request, 'register.html', {"form": form})
-
-
-def login_user(request):
-    if request.method == "POST":
-        username = request.POST.get("username")
-        password = request.POST.get("password")
-        print(request.POST)
-        user = authenticate(username=username, password=password)
-        if user is not None:
-            login(request, user)
-            return redirect("/")
-        else:
-            messages.error(request, 'Invalid username or password')
-    return render(request, 'login.html')
-
-
-def logout_user(request):
-    logout(request)
-    return redirect("/login")
+    pathlist = request.path.split("/")
+    endpoint = int(pathlist[2])
+    print(f'endpoint is {endpoint}')
+    return render(request, 'chatById.html', {'conversations': conversations, "messages": messages, 'endpoint': endpoint})

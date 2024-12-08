@@ -13,47 +13,17 @@ body {
 .dropdown-btn:hover .dropdown-content {
   display: block;
 }
-
-.typewriter {
-  overflow: hidden;
-  border-right: 0.15em solid #333;
-  letter-spacing: 0.15em;
-  animation: typing 3.5s steps(40, end), blink-caret 0.75s step-end infinite;
+.active {
+  width: 3.5rem !important;
+  padding: 1rem 0.6rem !important;
 }
-
-/* The typing effect */
-@keyframes typing {
-  from {
-    width: 0;
-  }
-  to {
-    width: 100%;
-  }
+.active ul li span,
+.active .conversation,
+.active .new-chat span,
+.active .location,
+.active .back-home {
+  display: none;
 }
-
-/* The typewriter cursor effect */
-@keyframes blink-caret {
-  from,
-  to {
-    border-color: transparent;
-  }
-  50% {
-    border-color: orange;
-  }
-}
-.register-form p {
-  margin-top: 10px;
-  display: block;
-}
-.register-form p label {
-  display: block;
-}
-.register-form p input {
-  display: block;
-  border-radius: 0.2rem;
-  color: black;
-  padding: 4px;
-}
-.register-form p span {
-  display: block;
+.active .setting {
+  left: 3px;
 }

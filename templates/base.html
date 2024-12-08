@@ -1,0 +1,36 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" class="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{% block title %}Home|GEN-AI{% endblock %}</title>
+    <link rel="shortcut icon" href="{% static 'images/ai.png' %}" type="image/x-icon">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        darkMode: "class", // Use a class for dark mode
+        theme: {
+          extend: {},
+        },
+      };
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.min.js"></script>
+    <link
+      href="https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css"
+      rel="stylesheet"
+    />
+    <link href="{% static 'css/style.css' %}" rel="stylesheet" />
+  </head>
+  <body class="text-gray-600 dark:text-white bg-white dark:bg-gray-900">
+    {% block content %}{% endblock %}
+    <script
+      src="{% static 'js/darkTheme.js' %}"
+      type="text/javascript"
+    ></script>
+  </body>
+</html>

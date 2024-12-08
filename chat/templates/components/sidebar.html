@@ -1,60 +1,65 @@
-<!-- sidebar section start -->
-<aside class="bg-stone-800 px-8 py-5 relative w-[20rem] shrink-0">
+<aside
+  class="bg-gray-200 dark:bg-gray-800 px-8 py-5 relative w-[20rem] shrink-0 sidebar md:active"
+>
   <div>
-    <button class="hover:bg-stone-900 transition-color duration-300 p-2 rounded-full"><i class="ri-menu-line text-xl text-white"></i></button>
-    <a href="/" class="flex items-center gap-x-3 mt-8 text-white hover:bg-stone-900 transition-color duration-300 px-3 py-2 rounded-full -ml-1.5">
-      <span><i class="ri-add-line"></i></span>
-      <span>New chat</span>
+    <div class="flex items-center justify-between">
+      <button
+        id="conversation-menu"
+        class="hover:bg-gray-300 dark:hover:bg-gray-900 transition-color duration-300 p-2 rounded-full"
+      >
+        <i class="ri-menu-line text-xl"></i>
+      </button>
+      <a class="hover:text-blue-500 back-home" href="/"
+        ><i class="ri-arrow-left-line"> <span>Back</span></i></a
+      >
+    </div>
+
+    <a
+      href="{% url 'home-chat' %} "
+      class="flex items-center gap-x-3 mt-8 hover:bg-gray-300 dark:hover:bg-gray-900 transition-color duration-300 px-3 py-2 rounded-full -ml-1.5 new-chat"
+    >
+      <i class="ri-add-line"></i>
+      <span class="">New chat</span>
     </a>
   </div>
-  <div>
-    <h4 class="text-white pl-3.5 mt-5 text-sm">Recent</h4>
+  <div class="conversation">
+    <h4 class="pl-3.5 mt-5 text-sm">Recent</h4>
     <ul class="xl:space-y-3 max-h-[40vh] overflow-y-auto scrollbar-thin mt-2">
       {% for conversation in conversations %}
-      <li class="{% if conversation.id == endpoint %} bg-stone-900 {% endif %} flex items-center text-white gap-x-2  hover:bg-stone-900 transition-color duration-300 px-3.5 py-2 rounded-full cursor-pointer mr-1">
-        <a href={% url 'chat' conversation.id %}>
+      <li
+        class="{% if conversation.id == endpoint %} dark:bg-gray-900 bg-gray-300 {% endif %} flex items-center gap-x-2 dark:hover:bg-gray-900 hover:bg-gray-300 transition-color duration-300 px-3.5 py-2 rounded-full cursor-pointer mr-1"
+      >
+        <a class="w-full" href="{% url 'chat_by_id' conversation.id %}">
           <span class="-mb-1"><i class="ri-message-2-line"></i></span>
-          <span>{{ conversation.name }}</span>
+          <span>{{conversation.name}}</span>
         </a>
       </li>
       {% endfor %}
     </ul>
   </div>
-  <div class="w-[80%] absolute bottom-2 left-8">
+  <div class="setting w-[80%] absolute bottom-2 left-8">
     <ul>
-      <li class="flex items-center text-white gap-x-2 hover:bg-stone-900 transition-color duration-300 px-3.5 py-1.5 rounded-full cursor-pointer">
-        <span>
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-4">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M9.879 7.519c1.171-1.025 3.071-1.025 4.242 0 1.172 1.025 1.172 2.687 0 3.712-.203.179-.43.326-.67.442-.745.361-1.45.999-1.45 1.827v.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9 5.25h.008v.008H12v-.008Z" />
-          </svg>
-        </span>
+      <li
+        class="flex items-center gap-x-2 dark:hover:bg-gray-900 hover:bg-gray-300 transition-color duration-300 px-3.5 py-1.5 rounded-full cursor-pointer"
+      >
+        <i class="ri-question-line"></i>
+
         <span class="text-sm">Help</span>
       </li>
-      <li class="flex items-center text-white gap-x-2 hover:bg-stone-900 transition-color duration-300 px-3.5 py-1.5 rounded-full cursor-pointer">
-        <span>
-          <svg class="w-4" viewBox="0 0 24 24" id="_24x24_On_Light_Recent" data-name="24x24/On Light/Recent" xmlns="http://www.w3.org/2000/svg" fill="#000000">
-            <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-            <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
-            <g id="SVGRepo_iconCarrier">
-              <rect id="view-box" width="24" height="24" fill="none"></rect>
-              <path id="Shape" d="M9.682,18.75a.75.75,0,0,1,.75-.75,8.25,8.25,0,1,0-6.189-2.795V12.568a.75.75,0,0,1,1.5,0v4.243a.75.75,0,0,1-.751.75H.75a.75.75,0,0,1,0-1.5H3a9.75,9.75,0,1,1,7.433,3.44A.75.75,0,0,1,9.682,18.75Zm2.875-4.814L9.9,11.281a.754.754,0,0,1-.22-.531V5.55a.75.75,0,1,1,1.5,0v4.889l2.436,2.436a.75.75,0,1,1-1.061,1.06Z" transform="translate(1.568 2.25)" fill="#fcfcfc"></path>
-            </g>
-          </svg>
-        </span>
+      <li
+        class="flex items-center gap-x-2 dark:hover:bg-gray-900 hover:bg-gray-300 transition-color duration-300 px-3.5 py-1.5 rounded-full cursor-pointer"
+      >
+        <i class="ri-history-fill"></i>
         <span class="text-sm">Activity</span>
       </li>
-      <li class="flex items-center text-white gap-x-2 hover:bg-stone-900 transition-color duration-300 px-3.5 py-1.5 rounded-full cursor-pointer">
-        <span>
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-4">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M9.594 3.94c.09-.542.56-.94 1.11-.94h2.593c.55 0 1.02.398 1.11.94l.213 1.281c.063.374.313.686.645.87.074.04.147.083.22.127.325.196.72.257 1.075.124l1.217-.456a1.125 1.125 0 0 1 1.37.49l1.296 2.247a1.125 1.125 0 0 1-.26 1.431l-1.003.827c-.293.241-.438.613-.43.992a7.723 7.723 0 0 1 0 .255c-.008.378.137.75.43.991l1.004.827c.424.35.534.955.26 1.43l-1.298 2.247a1.125 1.125 0 0 1-1.369.491l-1.217-.456c-.355-.133-.75-.072-1.076.124a6.47 6.47 0 0 1-.22.128c-.331.183-.581.495-.644.869l-.213 1.281c-.09.543-.56.94-1.11.94h-2.594c-.55 0-1.019-.398-1.11-.94l-.213-1.281c-.062-.374-.312-.686-.644-.87a6.52 6.52 0 0 1-.22-.127c-.325-.196-.72-.257-1.076-.124l-1.217.456a1.125 1.125 0 0 1-1.369-.49l-1.297-2.247a1.125 1.125 0 0 1 .26-1.431l1.004-.827c.292-.24.437-.613.43-.991a6.932 6.932 0 0 1 0-.255c.007-.38-.138-.751-.43-.992l-1.004-.827a1.125 1.125 0 0 1-.26-1.43l1.297-2.247a1.125 1.125 0 0 1 1.37-.491l1.216.456c.356.133.751.072 1.076-.124.072-.044.146-.086.22-.128.332-.183.582-.495.644-.869l.214-1.28Z" />
-            <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
-          </svg>
-        </span>
-
+      <li
+        class="flex items-center gap-x-2 dark:hover:bg-gray-900 hover:bg-gray-300 transition-color duration-300 px-3.5 py-1.5 rounded-full cursor-pointer"
+      >
+        <i class="ri-settings-4-line"></i>
         <span class="text-sm">Settings</span>
       </li>
     </ul>
-    <div class="mt-4 text-xs text-gray-400">
+    <div class="location mt-4 text-xs dark:text-gray-400 text-gray-600">
       <p>Bangladesh</p>
       <p>
         Based on your places (Home) •
@@ -63,4 +68,3 @@
     </div>
   </div>
 </aside>
-<!-- sidebar section end -->
