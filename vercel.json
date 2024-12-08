@@ -1,4 +1,25 @@
 {
-  "builds": [{ "src": "manage.py", "use": "@vercel/python" }],
-  "routes": [{ "src": "/static/(.*)", "dest": "/staticfiles/$1" }]
+  "builds": [
+    {
+      "src": "chatai/wsgi.py",
+      "use": "@vercel/python",
+      "config": { "maxLambdaSize": "15mb", "runtime": "python3.9" }
+    }
+  ],
+  "routes": [
+    {
+      "src": "/static/(.*)",
+      "dest": "/staticfiles/$1"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "chatai/wsgi.py"
+    }
+  ],
+  "build": {
+    "env": {
+      "DJANGO_SETTINGS_MODULE": "chatai.settings"
+    },
+    "commands": ["python manage.py collectstatic --noinput"]
+  }
 }
