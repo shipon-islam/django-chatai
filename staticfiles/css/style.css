@@ -1,0 +1,29 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap");
+body {
+  font-family: "Inter", sans-serif;
+}
+/* Scrollbar styling */
+.scrollbar-thin::-webkit-scrollbar {
+  width: 5px;
+}
+.scrollbar-thin::-webkit-scrollbar-thumb {
+  background-color: rgb(68 64 60); /* Tailwind Purple-300 */
+  border-radius: 9999px;
+}
+.dropdown-btn:hover .dropdown-content {
+  display: block;
+}
+.active {
+  width: 3.5rem !important;
+  padding: 1rem 0.6rem !important;
+}
+.active ul li span,
+.active .conversation,
+.active .new-chat span,
+.active .location,
+.active .back-home {
+  display: none;
+}
+.active .setting {
+  left: 3px;
+}
